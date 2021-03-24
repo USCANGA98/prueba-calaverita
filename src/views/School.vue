@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <h1>All stacks</h1>
-  </div>
+  <div><h1>School</h1></div>
 </template>
 
 <script>
