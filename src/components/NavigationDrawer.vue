@@ -150,7 +150,7 @@ export default {
           path: "/school",
         },
         {
-          icon: "mdi-rotate-right-variant",
+          icon: "mdi-briefcase-outline",
           title: "Work",
           path: "/work",
         },

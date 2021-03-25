@@ -1,7 +1,5 @@
 <template>
-  <v-container>
-    <h1>All stacks</h1>
-  </v-container>
+  <div></div>
 </template>
 
 <script>
