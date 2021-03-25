@@ -2,6 +2,7 @@
   <div>
     <v-app-bar
       color="white"
+      elevation="3"
       :clipped-left="clipped"
       :clipped-right="clipped"
       app
@@ -12,7 +13,7 @@
         "
       />
 
-      <h4 v-text="title" />
+      <h4 class="title font-weight-black ma-5" v-text="title" />
       <v-spacer></v-spacer>
       <v-btn icon>
         <v-icon>mdi-magnify</v-icon>
@@ -58,45 +59,17 @@
           class="font-weight-black"
         >
           <v-list-item-icon>
-            <v-icon class="ml-5" right>{{ item.icon }}</v-icon>
+            <v-icon class="ml-5" right color="blue">{{ item.icon }}</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title v-text="item.title" />
           </v-list-item-content>
         </v-list-item>
       </v-list>
-      <div class="subtitle-2 grey--text mx-4">insights</div>
-      <v-list dense nav class="mx-n1">
-        <v-list-item link>
-          <v-list-item-icon>
-            <v-icon>mdi-mail</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>Messages</v-list-item-title>
-          </v-list-item-content>
-
-          <v-list-item-avatar color="red" size="20" class="white--text">
-            1
-          </v-list-item-avatar>
-        </v-list-item>
-        <v-list-item link>
-          <v-list-item-icon>
-            <v-icon>mdi-bell</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>
-              Notifications
-            </v-list-item-title></v-list-item-content
-          >
-
-          <v-list-item-avatar size="20" color="deep-purple" class="white--text">
-            2
-          </v-list-item-avatar>
-        </v-list-item>
-      </v-list>
     </v-navigation-drawer>
 
     <v-navigation-drawer
+      width="310"
       color="rgba(0,0,0,0)"
       v-model="rightDrawer"
       :right="right"
@@ -105,24 +78,46 @@
       app
       fixed
     >
-      <v-list dense nav class="mx-n1">
-        <v-list-item
-          @click.stop="miniVariant = !miniVariant"
-          v-for="item in items2"
-          :key="item.title"
-          link
-          :to="item.path"
-          exact
-        >
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-      <div class="subtitle-2 grey--text mx-4">insights</div>
+      <v-list-item-title class="mt-4 ma-3 title font-weight-black">
+        <v-layout align-center>
+          <v-list>
+            <v-btn
+              :disabled="miniVariant == false"
+              class="mr-12"
+              icon
+              @click.stop="miniVariant = !miniVariant"
+            >
+              <v-icon>mdi-calendar-blank</v-icon>
+            </v-btn>
+            Calendar
+            <v-scale-transition>
+              <v-btn
+                v-if="miniVariant == false"
+                small
+                color="info"
+                class="ml-16"
+                fab
+                depressed
+                @click.stop="miniVariant = !miniVariant"
+                ><v-icon>mdi-arrow-collapse</v-icon></v-btn
+              >
+            </v-scale-transition>
+          </v-list>
+        </v-layout>
+      </v-list-item-title>
+      <v-row justify="center">
+        <v-slide-x-transition>
+          <v-card
+            color="rgba(0,0,0,0)"
+            flat
+            v-if="miniVariant == false"
+            max-width="300"
+            class="rounded-xl my-8"
+          >
+            <v-date-picker v-model="picker"></v-date-picker>
+          </v-card>
+        </v-slide-x-transition>
+      </v-row>
     </v-navigation-drawer>
   </div>
 </template>
@@ -132,11 +127,12 @@ export default {
   data() {
     return {
       clipped: true,
+      picker: null,
       mini: true,
       drawer: false,
       fixed: false,
       avatar:
-        "https://i.pinimg.com/564x/9a/fe/20/9afe20f84de3f9dbeb4b7109c319c79e.jpg",
+        "https://i.pinimg.com/564x/5f/ea/cc/5feacc824b1fc77c643070430b6762c0.jpg",
       items: [
         {
           icon: "mdi-view-dashboard",
@@ -159,13 +155,7 @@ export default {
           path: "/work",
         },
       ],
-      items2: [
-        {
-          icon: "mdi-clock",
-          title: "Home",
-          path: "/",
-        },
-      ],
+
       miniVariant: true,
       right: true,
       rightDrawer: true,

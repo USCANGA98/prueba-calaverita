@@ -1,5 +1,12 @@
 <template>
-  <div class="about">
+  <v-container>
     <h1>Personal</h1>
-  </div>
+  </v-container>
 </template>
+
+<script>
+export default {};
+</script>
+
+<style lang="scss" scoped>
+</style>
